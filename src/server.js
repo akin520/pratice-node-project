@@ -43,9 +43,13 @@ $.init.load(path.resolve(__dirname, 'init', 'mongodb.js'));
 // 加载Models
 $.init.load(path.resolve(__dirname, 'models'));
 
+// 加载methods
+$.init.load(path.resolve(__dirname, 'methods'));
 
 // 初始化Express
 $.init.load(path.resolve(__dirname, 'init', 'express.js'));
+// 初始化中间件
+$.init.load(path.resolve(__dirname, 'middlewares'));
 // 加载路由
 $.init.load(path.resolve(__dirname, 'routes'));
 
@@ -60,11 +64,11 @@ $.init((err) => {
   }
 
 //添加测试用户
-  const item = new $.model.User({
-    name: "akin"+Math.ceil(Math.random()*1000),
-	password: '123456',
-	nickname: 'test'+Math.ceil(Math.random()*1000),
-  });
-  item.save(console.log);
+ //  const item = new $.model.User({
+ //    name: "akin"+Math.ceil(Math.random()*1000),
+	// password: '123456',
+	// nickname: 'test'+Math.ceil(Math.random()*1000),
+ //  });
+ //  item.save(console.log);
 
 });
