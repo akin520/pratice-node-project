@@ -12,7 +12,8 @@ import serveStatic from 'serve-static';
 import bodyParser from 'body-parser';
 import multipart from 'connect-multiparty';
 import session from 'express-session';
-
+import _RedisStore from 'connect-redis';
+const RedisStore = _RedisStore(session);
 
 
 module.exports = function (done) {
