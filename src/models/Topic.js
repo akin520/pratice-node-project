@@ -24,6 +24,7 @@ module.exports = function (done) {
       authorId: ObjectId,
       content: String,
       createdAt: Date,
+	  nickname: String,
     }],
   });
 

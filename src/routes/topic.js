@@ -42,6 +42,11 @@ module.exports = function (done) {
     const topic = await $.method('topic.get').call({_id: req.params.topic_id});
     if (!topic) return next(new Error(`topic ${req.params.topic_id} does not exists`));
 
+    for(const comment of topic.comments){
+      const  user = await $.method('user.get').call({_id:comment.authorId.toString()});
+      comment.nickname = user.nickname;
+    }
+
     res.apiSuccess({topic});
 
   });
