@@ -24,7 +24,7 @@ module.exports = function (done) {
     if (!$.utils.validatePassword(req.body.password, user.password)) {
       return next(new Error('incorrect password'));
     }
-console.log(req.session);
+
     req.session.user = user;
     req.session.logout_token = $.utils.randomString(20);
 
@@ -38,6 +38,16 @@ console.log(req.session);
     if (req.session.logout_token && req.query.token !== req.session.logout_token) {
       return next(new Error('invalid token'));
     }
+
+    delete req.session.user;
+    delete req.session.logout_token;
+
+    res.apiSuccess({});
+
+  });
+
+
+  $.router.post('/api/logout', async function (req, res, next) {
 
     delete req.session.user;
     delete req.session.logout_token;

@@ -33,8 +33,7 @@ module.exports = {
       test: /\.svg$/,
       loader: "file-loader"
     }, {
-      //test: /\/bootstrap\/js\//,
-	  test: require.resolve("jquery"),
+      test: /\/bootstrap\/js\//,
       loader: 'imports?jQuery=jquery'
     }]
   },

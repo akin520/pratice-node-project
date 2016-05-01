@@ -29,7 +29,7 @@ module.exports = function (done) {
   app.use(session({
     secret: $.config.get('web.session.secret'),
     store: new RedisStore($.config.get('web.session.redis')),
-  })); 
+  }));
 
   const router = express.Router();
 
