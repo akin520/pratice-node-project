@@ -9,7 +9,7 @@
 module.exports = function (done) {
 
 
-  $.router.post('/api/topic/add', $.checkLogin,  async function (req, res, next) {
+  $.router.post('/api/topic/add', $.checkLogin, $.checkCount, async function (req, res, next) {
 
     req.body.author = req.session.user._id;
 

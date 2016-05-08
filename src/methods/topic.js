@@ -85,8 +85,12 @@ module.exports = function (done) {
   $.method('topic.count').register(async function (params) {
 
     const query = {};
+	const a = params.createdAt;
+	const start = a.getFullYear()+"-"+(a.getMonth()+1)+"-"+a.getDate()+" "+a.getHours();
+	const end = a.getFullYear()+"-"+(a.getMonth()+1)+"-"+a.getDate()+" "+(a.getHours()+1);
     if (params.author) query.author = params.author;
     if (params.tags) query.tags = {$all: params.tags};
+	if (params.createdAt) query.createdAt = {$gte:start, $lt:end}
 
     return $.model.Topic.count(query);
 
