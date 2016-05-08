@@ -36,7 +36,7 @@ export function request(method, path, data = {}) {
 }
 
 export function getTopicList(options) {
-  return request('get', 'topic/list', {});
+  return request('get', 'topic/list', options);
 }
 
 export function getTopicDetail(id) {
@@ -73,4 +73,12 @@ export function addComment(id, content) {
 
 export function deleteComment(id, cid) {
   return request('post', `topic/item/${id}/comment/delete`, {cid});
+}
+
+export function updateProfile(email, nickname, about) {
+  return request('post', 'user/profile', {email, nickname, about});
+}
+
+export function deleteTopic(id) {
+  return request('delete', `topic/item/${id}/`);
 }

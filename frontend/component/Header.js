@@ -7,7 +7,6 @@ export default class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-	console.log(this.state)
   }
 
   componentDidMount() {
@@ -44,6 +43,7 @@ export default class Header extends React.Component {
             </ul>
             {this.state.user ? (
               <ul className="nav navbar-nav navbar-right">
+                <li><Link to="/profile">设置</Link></li>
                 <li><a href="#" onClick={this.handleLogout.bind(this)}>注销 [{this.state.user.nickname}]</a></li>
               </ul>
             ) : (
