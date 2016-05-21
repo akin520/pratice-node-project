@@ -17,14 +17,6 @@ module.exports = function (done) {
 
   };
 
-  $.checkCount = async function (req, res, next) {
-
-    const count = await $.method('topic.count').call({_id: req.params.author._id, createdAt: new Date()});
-	if (count >= 2) return next(new Error(`1小时发贴不能超过2个`));
-
-    next();
-
-  };
 
   $.checkTopicAuthor = async function (req, res, next) {
 

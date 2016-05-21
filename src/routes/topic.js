@@ -9,15 +9,25 @@
 module.exports = function (done) {
 
 
-  $.router.post('/api/topic/add', $.checkLogin, $.checkCount, async function (req, res, next) {
+  $.router.post('/api/topic/add', $.checkLogin,  async function (req, res, next) {
 
     req.body.author = req.session.user._id;
+
+    // 发布频率限制
+    {
+      const key = `addtopic:${req.body.author}:${$.utils.date('YmdH')}`;
+      const limit = 2;
+      const ok = await $.limiter.incr(key, limit);
+      if (!ok) throw new Error('out of limit');
+    }
 
     if ('tags' in req.body) {
       req.body.tags = req.body.tags.split(',').map(v => v.trim()).filter(v => v);
     }
 
     const topic = await $.method('topic.add').call(req.body);
+
+    await $.method('user.incrScore').call({_id: req.body.author, score: 5});
 
     res.apiSuccess({topic});
 
@@ -65,6 +75,8 @@ module.exports = function (done) {
       };
     });
 
+    await $.method('topic.incrPageView').call({_id: req.params.topic_id});
+
     res.apiSuccess(result);
 
   });
@@ -99,7 +111,18 @@ module.exports = function (done) {
 
     req.body._id = req.params.topic_id;
     req.body.author = req.session.user._id;
+
+    // 发布频率限制
+    {
+      const key = `addcomment:${req.body.author}:${$.utils.date('YmdH')}`;
+      const limit = 20;
+      const ok = await $.limiter.incr(key, limit);
+      if (!ok) throw new Error('out of limit');
+    }
+
     const comment = await $.method('topic.comment.add').call(req.body);
+
+    await $.method('user.incrScore').call({_id: req.body.author, score: 1});
 
     res.apiSuccess({comment});
 
