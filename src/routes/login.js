@@ -6,6 +6,8 @@
  * @author Mingyi Zheng <badb0y520@gmail.com>
  */
 
+import nodemailer from 'nodemailer';
+
 module.exports = function (done) {
 
 
@@ -88,14 +90,28 @@ module.exports = function (done) {
 
     const user = await $.method('user.add').call(req.body);
 
-    $.method('mail.sendTemplate').call({
-      to: user.email,
-      subject: '»¶Ó­',
-      template: 'welcome',
-      data: user,
-    }, err => {
-      if (err) console.error(err);
-    });
+    var transporter = nodemailer.createTransport({
+    host: 'smtp.126.com',
+    auth: {
+        user: 'xxxxxxx@126.com',
+        pass: 'jiubugaoshuh=ni'
+		}
+	});
+
+
+	var mailOptions = {
+		to: user.email,
+		subject: '»¶Ó­',
+		text: 'welcome ~~~~',
+	};
+
+	transporter.sendMail(mailOptions, function(error, info){
+		if(error){
+			console.log(error);
+		}else{
+			console.log('Message sent: ' + info.response);
+		}
+	})
 
     res.apiSuccess({user: user});
 
