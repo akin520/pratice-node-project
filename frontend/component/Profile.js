@@ -40,8 +40,22 @@ export default class Profile extends React.Component {
         <p>正在加载...</p>
       )
     }
-    return (
+    return (	 
       <div style={{width: 400, margin: 'auto'}}>
+		{this.state.githubUsername ? (
+        <div className="panel panel-primary">
+          <div className="panel-heading">{this.state.githubUsername} 的个人设置</div>
+            <div className="panel-body">
+            <form>
+              <div className="form-group">
+                <label htmlFor="ipt-nickname">github名称</label>
+                <input type="text" className="form-control" id="ipt-nickname" onChange={this.handleChange.bind(this, 'githubUsername')} placeholder="" value={this.state.githubUsername} />
+              </div>
+              <button type="button" className="btn btn-primary" onClick={this.handleSave.bind(this)}>解除绑定</button>
+              </form>
+            </div>
+        </div>	  
+		) : (
         <div className="panel panel-primary">
           <div className="panel-heading">{this.state.name} 的个人设置</div>
             <div className="panel-body">
@@ -61,8 +75,9 @@ export default class Profile extends React.Component {
               <button type="button" className="btn btn-primary" onClick={this.handleSave.bind(this)}>保存</button>
               </form>
             </div>
-        </div>
-      </div>
+        </div>	  
+		)}
+	</div>
     )
   }
 }
