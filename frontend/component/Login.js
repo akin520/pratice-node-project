@@ -48,7 +48,7 @@ export default class Login extends React.Component {
               </div>
               <button type="button" className="btn btn-primary" onClick={this.handleLogin.bind(this)}>{isBind ? '绑定' : '登录'}</button>
               &nbsp;
-              
+              {isBind ? null : <a href="/auth/github" className="btn btn-info">使用GitHub帐号登录</a>}
               <span className="pull-right"><Link to="/reset_password">重置密码</Link></span>
               </form>
             </div>

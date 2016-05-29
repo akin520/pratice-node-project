@@ -53,6 +53,8 @@ $.init.load(path.resolve(__dirname, 'routes'));
 
 // 初始化limiter
 $.init.load(path.resolve(__dirname, 'init', 'limiter.js'));
+// 初始化captcha
+$.init.load(path.resolve(__dirname, 'init', 'captcha.js'));
 
 
 
