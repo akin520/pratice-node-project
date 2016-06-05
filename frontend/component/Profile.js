@@ -34,6 +34,21 @@ export default class Profile extends React.Component {
       });
   }
 
+  handleSave1(e) {
+    const $btn = jQuery(e.target);
+    $btn.button('loading');
+	this.state.githubUsername="";
+    updateProfile(this.state.email,this.state.githubUsername)
+      .then(ret => {
+        $btn.button('reset');
+        alert('解绑成功！');
+      })
+      .catch(err => {
+        $btn.button('reset');
+        alert(err);
+      });
+  }
+
   render() {
     if (!this.state._id) {
       return (
@@ -47,11 +62,12 @@ export default class Profile extends React.Component {
           <div className="panel-heading">{this.state.githubUsername} 的个人设置</div>
             <div className="panel-body">
             <form>
+			  <input type="hidden" className="form-control" id="ipt-email" onChange={this.handleChange.bind(this, 'email')} placeholder="" value={this.state.email} />
               <div className="form-group">
                 <label htmlFor="ipt-nickname">github名称</label>
                 <input type="text" className="form-control" id="ipt-nickname" onChange={this.handleChange.bind(this, 'githubUsername')} placeholder="" value={this.state.githubUsername} />
               </div>
-              <button type="button" className="btn btn-primary" onClick={this.handleSave.bind(this)}>解除绑定</button>
+              <button type="button" className="btn btn-primary" onClick={this.handleSave1.bind(this)}>解除绑定</button>
               </form>
             </div>
         </div>	  
