@@ -39,6 +39,7 @@ $.init.add(done => {
 $.init.add(async function () {
   const data = require('./test.db');
   for (const name in data) {
+	console.error(name);
     for (const item of data[name]) {
       await $.mongodb.db.collection(name).save(item);
     }

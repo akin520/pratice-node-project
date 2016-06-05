@@ -42,6 +42,22 @@ describe('topic', function () {
       expect(ret.topic.tags).to.have.members(['test']);
     }
 
+    {
+      const ret = await request.post('/api/topic/item/57011b02e98f81ac0edfe585/comment/add', {
+        content: '回复测试',
+      });
+      console.log(ret);
+      expect(ret.topic.content).to.equal('回复测试');
+    }
+
+    {
+      const ret = await request.post('/api/topic/item/57011b02e98f81ac0edfe585/comment/delete', {
+        cid: '57011e05e98f81ac0edfe586',
+      });
+      console.log(ret);
+    }
+
+
   });
 
 });

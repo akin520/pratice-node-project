@@ -6,3 +6,4 @@ exports.users = [{
   "email": "test0@example.com",
   "password": "24:11D149B420680C89EF1F75E0C9511611:E0",
 }];
+
